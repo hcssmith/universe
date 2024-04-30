@@ -1,7 +1,7 @@
 {
   pkgs,
   wrap_files,
-	pkg,
+  pkg,
   ...
 }: {
   # Import all your configuration modules here

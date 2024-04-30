@@ -1,4 +1,8 @@
-{notes_dir, pkgs_stable, ...}: {
+{
+  notes_dir,
+  pkgs_stable,
+  ...
+}: {
   plugins.neorg = {
     enable = true;
     package = pkgs_stable.vimPlugins.neorg;

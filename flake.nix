@@ -33,7 +33,7 @@
     overlays = [
       inputs.nur.overlay
       self.overlays.default
-			inputs.neovim-nightly-overlay.overlay
+      inputs.neovim-nightly-overlay.overlay
     ];
     lib = import ./lib {inherit supportedSystems nixpkgs overlays inputs;};
     inherit (lib) forAllSystems nixpkgsFor fromDir;
