@@ -88,7 +88,7 @@
     servers = {
       ols = {enable = true;};
       lua-ls = {enable = true;};
-      nil_ls = {enable = true;};
+      nixd = {enable = true;};
     };
     capabilities = "vim.lsp.protocol.make_client_capabilities()";
     onAttach = ''
