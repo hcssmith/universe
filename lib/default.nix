@@ -27,4 +27,9 @@
     dir = dir;
     prev = prev;
   });
+
+  overlayToPackages = dir: pkgs:
+    nixpkgs.lib.genAttrs (builtins.attrNames (builtins.readDir dir)) (
+      name: pkgs.${name}
+    );
 }
