@@ -15,18 +15,11 @@
       }
   );
 
-  genOverlay = {
-    dir,
-    prev,
-  }:
+  genOverlay = dir: final: prev: (
     nixpkgs.lib.genAttrs (builtins.attrNames (builtins.readDir dir)) (
       name: prev.callPackage /${dir}/${name} {inherit prev inputs;}
-    );
-
-  fromDir = dir: final: prev: (genOverlay {
-    dir = dir;
-    prev = prev;
-  });
+    )
+  );
 
   overlayToPackages = dir: pkgs:
     nixpkgs.lib.genAttrs (builtins.attrNames (builtins.readDir dir)) (

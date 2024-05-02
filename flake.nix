@@ -36,18 +36,21 @@
       inputs.neovim-nightly-overlay.overlay
     ];
     lib = import ./lib {inherit supportedSystems nixpkgs overlays inputs;};
-    inherit (lib) forAllSystems nixpkgsFor fromDir overlayToPackages;
+    inherit (lib) forAllSystems nixpkgsFor overlayToPackages genOverlay;
   in {
-    overlays.default = fromDir ./overlay;
+    overlays.default = genOverlay ./overlay;
 
     formatter = forAllSystems (system: nixpkgsFor.${system}.alejandra);
 
     packages = forAllSystems (
       system: let
         pkgs = nixpkgsFor.${system};
-      in {
-        default = inputs.home-manager.defaultPackage.${system};
-      } // (overlayToPackages ./overlay pkgs));
+      in
+        {
+          default = inputs.home-manager.defaultPackage.${system};
+        }
+        // (overlayToPackages ./overlay pkgs)
+    );
 
     # Dev Shells for nix development contains all the required tools.
     devShells = forAllSystems (
