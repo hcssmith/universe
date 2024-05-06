@@ -24,8 +24,8 @@
     nixpkgs,
     ...
   } @ inputs: let
-    supportedSystems = [
-      "x86_64-linux"
+    supportedSystems = [ 
+			"x86_64-linux"
       "x86_64-darwin"
       "aarch64-linux"
       "aarch64-darwin"
@@ -36,8 +36,25 @@
       inputs.neovim-nightly-overlay.overlay
     ];
     lib = import ./lib {inherit supportedSystems nixpkgs overlays inputs;};
-    inherit (lib) forAllSystems nixpkgsFor overlayToPackages genOverlay;
+    inherit (lib) forAllSystems nixpkgsFor overlayToPackages genOverlay mkHost;
   in {
+    nixosConfigurations.laptop = let
+      system = "x86_64-linux";
+      pkgs = nixpkgsFor.${system};
+    in
+      mkHost {
+        name = "laptop";
+        inherit system;
+        users = [
+          {
+            name = "hcssmith";
+            groups = ["wheel" "networkmanager"];
+            uid = 1000;
+            shell = pkgs.zsh;
+          }
+        ];
+      };
+
     overlays.default = genOverlay ./overlay;
 
     formatter = forAllSystems (system: nixpkgsFor.${system}.alejandra);
@@ -60,7 +77,6 @@
         default = pkgs.mkShell {
           nativeBuildInputs = with pkgs; [
             nix-prefetch-github
-            nixfmt-rfc-style
           ];
           shellHook = "zsh";
         };
