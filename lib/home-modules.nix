@@ -26,16 +26,16 @@
   kitty-module = {
     programs.kitty = {
       enable = true;
-			shellIntegration.enableZshIntegration = true;
+      shellIntegration.enableZshIntegration = true;
       font = {
         package = pkgs.fira-code-nerdfont;
         name = "Fira Code";
         size = 10;
       };
       settings = {
-				term = "xterm-kitty";
-				window_border_width = "0";
-				background_opacity = "0.7";
+        term = "xterm-kitty";
+        window_border_width = "0";
+        background_opacity = "0.7";
         foreground = "#f8f8f2";
         background = "#282a36";
         selection_foreground = "#ffffff";
@@ -81,8 +81,8 @@
         ls = "eza";
         ll = "eza -l";
         la = "eza -la";
-				lt = "eza --tree";
-				lta = "eza -la --tree";
+        lt = "eza --tree";
+        lta = "eza -la --tree";
         cat = "bat";
         srv = "${pkgs.python3}/bin/python -m http.server 8000";
         tbz2 = "tar -xvjf";
@@ -153,4 +153,24 @@
       };
     };
   };
+
+	sway-module = {
+		wayland.windowManager.sway = {
+			enable = true;
+			config = rec {
+				modifier = "Mod4";
+				# Use kitty as default terminal
+				terminal = "kitty"; 
+				startup = [
+					# Launch Firefox on start
+					{command = "firefox";}
+				];
+				assigns = {
+					"2: web" = [{ class = "^Firefox$"; }];
+				};
+
+
+			};
+  	};
+	};
 }

@@ -5,6 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nixpkgs_stable.url = "github:nixos/nixpkgs/23.11";
     nur.url = "github:nix-community/NUR/master";
+    nixgl.url = "github:nix-community/nixGL";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -34,6 +35,7 @@
       inputs.nur.overlay
       self.overlays.default
       inputs.neovim-nightly-overlay.overlay
+      inputs.nixgl.overlay
     ];
     lib = import ./lib {inherit supportedSystems nixpkgs overlays inputs;};
     inherit (lib) forAllSystems nixpkgsFor overlayToPackages genOverlay mkHost mkHMUser;
@@ -60,20 +62,22 @@
     homeConfigurations = {
       hcssmith = let
         system = "x86_64-linux";
-				pkgs = nixpkgsFor.${system};
+        pkgs = nixpkgsFor.${system};
       in
         mkHMUser {
           username = "hcssmith";
           inherit system;
-					kitty = true;
-					starship = true;
-					git = true;
-					util = true;
-					zsh = true;
-					extraPackages = with pkgs; [firefox];
+          kitty = true;
+          starship = true;
+          git = true;
+          util = true;
+          zsh = true;
+          extraPackages = with pkgs; [
+            firefox
+            nixgl.nixGLIntel
+          ];
         };
-    }
-		;
+    };
 
     overlays.default = genOverlay ./overlay;
 

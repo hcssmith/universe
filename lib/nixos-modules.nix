@@ -26,7 +26,7 @@
   nix-config = {
     settings.experimental-features = ["nix-command" "flakes"];
     registry = registry;
-		package = pkgs.nix;
+    package = pkgs.nix;
   };
 
   sound-module = {
@@ -57,4 +57,18 @@
       LC_TIME = "en_GB.UTF-8";
     };
   };
+
+  gdm-module = {
+    services.xserver.displayManager.gdm = {
+      enable = true;
+      wayland = true;
+    };
+  };
+
+	gnome-module = {
+		services.xserver.desktopManager.gnome = {
+			enable = true;
+		};
+	};
+
 }

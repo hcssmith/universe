@@ -33,16 +33,17 @@ in rec {
     username,
     system,
     extraPackages ? [],
-		util ? false,
-		kitty ? false,
-		zsh ? false,
-		starship ? false,
-		git ? false,
+    util ? false,
+    kitty ? false,
+    zsh ? false,
+    starship ? false,
+    git ? false,
+		sway ? false,
     ...
   }: let
     pkgs = nixpkgsFor.${system};
     home-modules = import ./home-modules.nix {inherit pkgs lib;};
-		inherit (home-modules) utils-module kitty-module zsh-module starship-module git-module;
+    inherit (home-modules) utils-module kitty-module zsh-module starship-module git-module sway-module;
     nixos-modules = import ./nixos-modules.nix {inherit pkgs;};
     inherit (nixos-modules) nix-config;
   in
@@ -53,7 +54,7 @@ in rec {
           home = {
             inherit username;
             homeDirectory = "/home/${username}";
-						stateVersion = "24.05";
+            stateVersion = "24.05";
             packages = with pkgs; [
               gnutar
               p7zip
@@ -66,11 +67,12 @@ in rec {
         {
           home.packages = extraPackages;
         }
-				(lib.mkIf util utils-module)
-				(lib.mkIf kitty kitty-module)
-				(lib.mkIf starship starship-module)
-				(lib.mkIf zsh zsh-module)
-				(lib.mkIf git git-module)
+        (lib.mkIf util utils-module)
+        (lib.mkIf kitty kitty-module)
+        (lib.mkIf starship starship-module)
+        (lib.mkIf zsh zsh-module)
+        (lib.mkIf git git-module)
+				(lib.mkIf sway sway-module)
       ];
     };
 
@@ -84,12 +86,13 @@ in rec {
     sound ? true,
     filesystems ? null,
     extraHardwareConfig ? {},
+    gui ? false,
     ...
   }: let
     sys_users = map (u: mkSystemUser u) users;
     pkgs = nixpkgsFor.${system};
     nixos-modules = import ./nixos-modules.nix {inherit pkgs;};
-    inherit (nixos-modules) uefi-module nix-config sound-module location-uk;
+    inherit (nixos-modules) uefi-module nix-config sound-module location-uk gdm-module gnome-module;
     mkSystemUser = {
       name,
       groups,
@@ -138,6 +141,8 @@ in rec {
         (lib.mkIf (builtins.isNull filesystems) {boot.isContainer = true;})
         (lib.mkIf (builtins.isAttrs extraHardwareConfig) extraHardwareConfig)
         (lib.mkIf (location == "uk") location-uk)
+        (lib.mkIf (gui != null) gdm-module)
+				(lib.mkIf (gui == "gnome") gnome-module)
       ];
     };
 }
