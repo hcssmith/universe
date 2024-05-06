@@ -88,7 +88,13 @@
     servers = {
       ols = {enable = true;};
       lua-ls = {enable = true;};
-      nixd = {enable = true;};
+      nixd = {
+        enable = true;
+				# pending https://github.com/nix-community/nixvim/pull/1490
+        #settings.formatting = {
+        #  command = ["alejandra"];
+        #};
+      };
     };
     capabilities = "vim.lsp.protocol.make_client_capabilities()";
     onAttach = ''
