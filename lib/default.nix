@@ -3,6 +3,7 @@
   nixpkgs,
   overlays,
   inputs,
+  ...
 }: let
   lib = nixpkgs.lib;
 in rec {
@@ -28,44 +29,50 @@ in rec {
       name: pkgs.${name}
     );
 
-  uefi-module = {
-    boot.loader = {
-      systemd-boot.enable = true;
-      efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot/efi";
-      };
+  mkHMUser = {
+    username,
+    system,
+    extraPackages ? [],
+		util ? false,
+		kitty ? false,
+		zsh ? false,
+		starship ? false,
+		git ? false,
+    ...
+  }: let
+    pkgs = nixpkgsFor.${system};
+    home-modules = import ./home-modules.nix {inherit pkgs lib;};
+		inherit (home-modules) utils-module kitty-module zsh-module starship-module git-module;
+    nixos-modules = import ./nixos-modules.nix {inherit pkgs;};
+    inherit (nixos-modules) nix-config;
+  in
+    inputs.home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      modules = [
+        {
+          home = {
+            inherit username;
+            homeDirectory = "/home/${username}";
+						stateVersion = "24.05";
+            packages = with pkgs; [
+              gnutar
+              p7zip
+              nvim
+            ];
+          };
+          news.display = "silent";
+          nix = nix-config;
+        }
+        {
+          home.packages = extraPackages;
+        }
+				(lib.mkIf util utils-module)
+				(lib.mkIf kitty kitty-module)
+				(lib.mkIf starship starship-module)
+				(lib.mkIf zsh zsh-module)
+				(lib.mkIf git git-module)
+      ];
     };
-  };
-
-  sound-module = {
-    sound.enable = true;
-    hardware.pulseaudio.enable = false;
-    security.rtkit.enable = true;
-    services.pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-    };
-  };
-
-  location-uk = {
-    console.keyMap = "uk";
-    time.timeZone = "Europe/London";
-    i18n.defaultLocale = "en_GB.UTF-8";
-    i18n.extraLocaleSettings = {
-      LC_ADDRESS = "en_GB.UTF-8";
-      LC_IDENTIFICATION = "en_GB.UTF-8";
-      LC_MEASUREMENT = "en_GB.UTF-8";
-      LC_MONETARY = "en_GB.UTF-8";
-      LC_NAME = "en_GB.UTF-8";
-      LC_NUMERIC = "en_GB.UTF-8";
-      LC_PAPER = "en_GB.UTF-8";
-      LC_TELEPHONE = "en_GB.UTF-8";
-      LC_TIME = "en_GB.UTF-8";
-    };
-  };
 
   mkHost = {
     name,
@@ -77,9 +84,12 @@ in rec {
     sound ? true,
     filesystems ? null,
     extraHardwareConfig ? {},
+    ...
   }: let
     sys_users = map (u: mkSystemUser u) users;
     pkgs = nixpkgsFor.${system};
+    nixos-modules = import ./nixos-modules.nix {inherit pkgs;};
+    inherit (nixos-modules) uefi-module nix-config sound-module location-uk;
     mkSystemUser = {
       name,
       groups,
@@ -118,23 +128,7 @@ in rec {
             hostName = "${name}";
             networkmanager.enable = true;
           };
-          nix = {
-						settings.experimental-features = ["nix-command" "flakes"];
-						registry = {
-							"universe" = {
-								from = {
-									id = "universe";
-									indirect = true;
-								};
-								to = {
-									owner = "hcssmith";
-									repo = "universe";
-									type = "github";
-								};
-								flake = nixpkgs;
-								};
-						};
-					};
+          nix = nix-config;
           system.stateVersion = "24.05";
         }
         (lib.mkIf uefi uefi-module)

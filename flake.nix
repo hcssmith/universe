@@ -24,8 +24,8 @@
     nixpkgs,
     ...
   } @ inputs: let
-    supportedSystems = [ 
-			"x86_64-linux"
+    supportedSystems = [
+      "x86_64-linux"
       "x86_64-darwin"
       "aarch64-linux"
       "aarch64-darwin"
@@ -36,24 +36,44 @@
       inputs.neovim-nightly-overlay.overlay
     ];
     lib = import ./lib {inherit supportedSystems nixpkgs overlays inputs;};
-    inherit (lib) forAllSystems nixpkgsFor overlayToPackages genOverlay mkHost;
+    inherit (lib) forAllSystems nixpkgsFor overlayToPackages genOverlay mkHost mkHMUser;
   in {
-    nixosConfigurations.laptop = let
-      system = "x86_64-linux";
-      pkgs = nixpkgsFor.${system};
-    in
-      mkHost {
-        name = "laptop";
-        inherit system;
-        users = [
-          {
-            name = "hcssmith";
-            groups = ["wheel" "networkmanager"];
-            uid = 1000;
-            shell = pkgs.zsh;
-          }
-        ];
-      };
+    nixosConfigurations = {
+      laptop = let
+        system = "x86_64-linux";
+        pkgs = nixpkgsFor.${system};
+      in
+        mkHost {
+          name = "laptop";
+          inherit system;
+          users = [
+            {
+              name = "hcssmith";
+              groups = ["wheel" "networkmanager"];
+              uid = 1000;
+              shell = pkgs.zsh;
+            }
+          ];
+        };
+    };
+
+    homeConfigurations = {
+      hcssmith = let
+        system = "x86_64-linux";
+				pkgs = nixpkgsFor.${system};
+      in
+        mkHMUser {
+          username = "hcssmith";
+          inherit system;
+					kitty = true;
+					starship = true;
+					git = true;
+					util = true;
+					zsh = true;
+					extraPackages = with pkgs; [firefox];
+        };
+    }
+		;
 
     overlays.default = genOverlay ./overlay;
 

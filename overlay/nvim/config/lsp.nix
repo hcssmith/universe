@@ -90,7 +90,7 @@
       lua-ls = {enable = true;};
       nixd = {
         enable = true;
-				# pending https://github.com/nix-community/nixvim/pull/1490
+        # pending https://github.com/nix-community/nixvim/pull/1490
         #settings.formatting = {
         #  command = ["alejandra"];
         #};
