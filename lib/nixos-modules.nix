@@ -13,7 +13,7 @@
     "universe" = {
       from = {
         id = "universe";
-        indirect = true;
+        type = "indirect";
       };
       to = {
         owner = "hcssmith";

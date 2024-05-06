@@ -101,7 +101,7 @@
       settings = {
         format = lib.concatStrings [
           "[](bg:#030B16 fg:#7DF9AA)"
-          "[󱄅](bg:#7DF9AA fg:#090c0c)"
+          "[](bg:#7DF9AA fg:#090c0c)"
           "[](fg:#7DF9AA bg:#1C3A5E)"
           "$time"
           "[](fg:#1C3A5E bg:#3B76F0)"
