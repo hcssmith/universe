@@ -78,7 +78,7 @@ in rec {
 
   mkHost = {
     name,
-    users,
+    users ? null,
     location ? "uk",
     system ? "x86_64-linux",
     extraConfig ? {},
@@ -88,12 +88,14 @@ in rec {
     extraHardwareConfig ? {},
     gui ? false,
     buildIso ? false,
+		fonts ? true,
+		extraFonts ? [],
     ...
   }: let
-    sys_users = map (u: mkSystemUser u) users;
+    sys_users = if (users != null) then map (u: mkSystemUser u) users else [];
     pkgs = nixpkgsFor.${system};
     nixos-modules = import ./nixos-modules.nix {inherit pkgs;};
-    inherit (nixos-modules) uefi-module nix-config sound-module location-uk gdm-module gnome-module;
+    inherit (nixos-modules) uefi-module nix-config sound-module location-uk gdm-module gnome-module dwm-module fonts-module;
     mkSystemUser = {
       name,
       groups,
@@ -121,9 +123,15 @@ in rec {
         "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-base.nix"
         {
           isoImage.squashfsCompression = "gzip -Xcompression-level 1";
-          environment.systemPackages = with pkgs; [
-            nvim
-          ];
+					environment.systemPackages = with pkgs; [
+						tabbed
+						surf
+						st
+						kitty
+						dmenu
+						slstatus
+						slock
+					];
           services.displayManager.autoLogin = {
             enable = true;
             user = "nixos";
@@ -160,8 +168,12 @@ in rec {
           (lib.mkIf (builtins.isNull filesystems && buildIso == false) {boot.isContainer = true;})
           (lib.mkIf (builtins.isAttrs extraHardwareConfig) extraHardwareConfig)
           (lib.mkIf (location == "uk") location-uk)
+					(lib.mkIf (location == "uk" && gui != null) {services.xserver.xkb.layout = "gb";})
           (lib.mkIf (gui != null) gdm-module)
           (lib.mkIf (gui == "gnome") gnome-module)
+          (lib.mkIf (gui == "dwm") dwm-module)
+					(lib.mkIf fonts fonts-module)
+					(lib.mkIf fonts {fonts.packages = extraFonts;})
         ]
         ++ isoModules;
     };

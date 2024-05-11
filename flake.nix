@@ -63,26 +63,19 @@
         };
       x86_64_buildIso = let
         system = "x86_64-linux";
-        pkgs = nixpkgsFor.${system};
       in
         mkHost {
           name = "x86_64_buildIso";
           inherit system;
           buildIso = true;
           location = "uk";
-          gui = "gnome";
-          users = [
-            {
-              name = "hcssmith";
-              groups = ["wheel" "networkmanager"];
-              uid = 1000;
-              shell = pkgs.zsh;
-            }
-          ];
+          gui = "dwm";
         };
     };
 
-		x86Iso = nixosConfigurations.x86_64_buildIso.config.system.build.isoImage; 
+		isos = {
+			x86 = nixosConfigurations.x86_64_buildIso.config.system.build.isoImage; 
+			};
 
     homeConfigurations = {
       hcssmith = let
