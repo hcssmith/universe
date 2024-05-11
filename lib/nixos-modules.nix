@@ -59,16 +59,17 @@
   };
 
   gdm-module = {
-    services.xserver.displayManager.gdm = {
+    services.xserver = {
       enable = true;
-      wayland = true;
+      displayManager.gdm = {
+        enable = true;
+      };
     };
   };
 
-	gnome-module = {
-		services.xserver.desktopManager.gnome = {
-			enable = true;
-		};
-	};
-
+  gnome-module = {
+    services.xserver.desktopManager.gnome = {
+      enable = true;
+    };
+  };
 }

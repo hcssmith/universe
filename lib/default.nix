@@ -38,7 +38,7 @@ in rec {
     zsh ? false,
     starship ? false,
     git ? false,
-		sway ? false,
+    sway ? false,
     ...
   }: let
     pkgs = nixpkgsFor.${system};
@@ -72,7 +72,7 @@ in rec {
         (lib.mkIf starship starship-module)
         (lib.mkIf zsh zsh-module)
         (lib.mkIf git git-module)
-				(lib.mkIf sway sway-module)
+        (lib.mkIf sway sway-module)
       ];
     };
 
@@ -83,10 +83,11 @@ in rec {
     system ? "x86_64-linux",
     extraConfig ? {},
     uefi ? false,
-    sound ? true,
+    sound ? false,
     filesystems ? null,
     extraHardwareConfig ? {},
     gui ? false,
+    buildIso ? false,
     ...
   }: let
     sys_users = map (u: mkSystemUser u) users;
@@ -114,35 +115,54 @@ in rec {
         shell = shell;
       };
     };
+    isoModules =
+      if buildIso == true
+      then [
+        "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-base.nix"
+        {
+          isoImage.squashfsCompression = "gzip -Xcompression-level 1";
+          environment.systemPackages = with pkgs; [
+            nvim
+          ];
+          services.displayManager.autoLogin = {
+            enable = true;
+            user = "nixos";
+          };
+        }
+      ]
+      else [];
   in
     nixpkgs.lib.nixosSystem {
       inherit system;
 
-      modules = [
-        extraConfig
-        {
-          imports =
-            [
-              (lib.mkIf (builtins.isPath extraHardwareConfig) extraHardwareConfig)
-            ]
-            ++ sys_users;
-          nixpkgs.pkgs = pkgs;
-          networking = {
-            hostName = "${name}";
-            networkmanager.enable = true;
-          };
-          nix = nix-config;
-          system.stateVersion = "24.05";
-        }
-        (lib.mkIf uefi uefi-module)
-        (lib.mkIf sound sound-module)
-        (lib.mkIf (builtins.isAttrs filesystems) {fileSystems = filesystems;})
-        (lib.mkIf (builtins.isPath filesystems) {fileSystems = import filesystems;})
-        (lib.mkIf (builtins.isNull filesystems) {boot.isContainer = true;})
-        (lib.mkIf (builtins.isAttrs extraHardwareConfig) extraHardwareConfig)
-        (lib.mkIf (location == "uk") location-uk)
-        (lib.mkIf (gui != null) gdm-module)
-				(lib.mkIf (gui == "gnome") gnome-module)
-      ];
+      modules =
+        [
+          extraConfig
+          {
+            imports =
+              [
+                (lib.mkIf (builtins.isPath extraHardwareConfig) extraHardwareConfig)
+              ]
+              ++ sys_users;
+            nixpkgs.pkgs = pkgs;
+            networking = {
+              hostName = "${name}";
+              networkmanager.enable = true;
+              wireless.enable = false;
+            };
+            nix = nix-config;
+            system.stateVersion = "24.05";
+          }
+          (lib.mkIf uefi uefi-module)
+          (lib.mkIf sound sound-module)
+          (lib.mkIf (builtins.isAttrs filesystems) {fileSystems = filesystems;})
+          (lib.mkIf (builtins.isPath filesystems) {fileSystems = import filesystems;})
+          (lib.mkIf (builtins.isNull filesystems && buildIso == false) {boot.isContainer = true;})
+          (lib.mkIf (builtins.isAttrs extraHardwareConfig) extraHardwareConfig)
+          (lib.mkIf (location == "uk") location-uk)
+          (lib.mkIf (gui != null) gdm-module)
+          (lib.mkIf (gui == "gnome") gnome-module)
+        ]
+        ++ isoModules;
     };
 }

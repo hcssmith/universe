@@ -2,7 +2,7 @@
   description = "System configurations / Overlays / Applications";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
     nixpkgs_stable.url = "github:nixos/nixpkgs/23.11";
     nur.url = "github:nix-community/NUR/master";
     nixgl.url = "github:nix-community/nixGL";
@@ -39,7 +39,7 @@
     ];
     lib = import ./lib {inherit supportedSystems nixpkgs overlays inputs;};
     inherit (lib) forAllSystems nixpkgsFor overlayToPackages genOverlay mkHost mkHMUser;
-  in {
+  in rec {
     nixosConfigurations = {
       laptop = let
         system = "x86_64-linux";
@@ -48,6 +48,29 @@
         mkHost {
           name = "laptop";
           inherit system;
+          location = "uk";
+          gui = "gnome";
+          uefi = true;
+          sound = true;
+          users = [
+            {
+              name = "hcssmith";
+              groups = ["wheel" "networkmanager"];
+              uid = 1000;
+              shell = pkgs.zsh;
+            }
+          ];
+        };
+      x86_64_buildIso = let
+        system = "x86_64-linux";
+        pkgs = nixpkgsFor.${system};
+      in
+        mkHost {
+          name = "x86_64_buildIso";
+          inherit system;
+          buildIso = true;
+          location = "uk";
+          gui = "gnome";
           users = [
             {
               name = "hcssmith";
@@ -58,6 +81,8 @@
           ];
         };
     };
+
+		x86Iso = nixosConfigurations.x86_64_buildIso.config.system.build.isoImage; 
 
     homeConfigurations = {
       hcssmith = let
