@@ -123,15 +123,6 @@ in rec {
         "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-base.nix"
         {
           isoImage.squashfsCompression = "gzip -Xcompression-level 1";
-					environment.systemPackages = with pkgs; [
-						tabbed
-						surf
-						st
-						kitty
-						dmenu
-						slstatus
-						slock
-					];
           services.displayManager.autoLogin = {
             enable = true;
             user = "nixos";
@@ -160,6 +151,14 @@ in rec {
             };
             nix = nix-config;
             system.stateVersion = "24.05";
+						environment.systemPackages = with pkgs; [
+							tabbed
+							surf
+							st
+							dmenu
+							slstatus
+							slock
+						];
           }
           (lib.mkIf uefi uefi-module)
           (lib.mkIf sound sound-module)
@@ -174,6 +173,7 @@ in rec {
           (lib.mkIf (gui == "dwm") dwm-module)
 					(lib.mkIf fonts fonts-module)
 					(lib.mkIf fonts {fonts.packages = extraFonts;})
+
         ]
         ++ isoModules;
     };

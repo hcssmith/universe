@@ -1,10 +1,9 @@
-
 {prev, ...}:
 prev.st.overrideAttrs (o: {
 	src = prev.fetchFromGitHub {
 	  owner = "hcssmith";
 	  repo = "st";
-    rev = "1c9006b7c15fa2026f8363dff4112516099848b2";
-    hash = "sha256-8Kz18ebf2MhW3Y9QxKsZQonpHpNrj7IPmBZFqov3iFo=";
+    rev = "5038733cc46d9db18e0067b82e9450e8c0ba3e33";
+    hash = "sha256-A8J/pePlBgRZDzT/I6shiAoEJ+QYktLczknAOwijuKU=";
 	};
 })
