@@ -14,6 +14,7 @@
     ./lsp.nix
     ./lualine.nix
     ./luasnip.nix
+		./macro.nix
     ./neogit.nix
     ./neorg.nix
     ./noice.nix

@@ -9,24 +9,21 @@ ${gum} style --bold --underline "Prepare NixOS System for installation."
 
 
 MACHINE_ID=$(${gum} input --header="Enter Machine ID")
+CONFIG_DIR=universe/machines/$MACHINE_ID
 
+nix flake clone universe --dest universe
 
+mkdir -p $CONFIG_DIR
 
-
-# retrive the universe flake.
-#nix flake clone universe -dest ./universe
-
-# generate ssh key
 #ssh-keygen -f ~/.ssh/id_rsa -q -N ""
+ssh-keygen -f ./test -q -N ""
 
 # put public ssh key on screen to be added to github
 
-echo "Add the following SSH key to github (this can be removed after install):\n"
+# if confifirm add to clipboard XCLIP else CAT
 
-cat ~/.ssh/id_rsa.pub
 
 # y/n confirm done, then update remotes to add ssh based remote
-
 
 # generate diskio filesystem instructions to universe/machines/$machine/diskio.nix
 
