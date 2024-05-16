@@ -119,7 +119,7 @@
     nvim-lspconfig
     lsp-status-nvim
   ];
-	extraPackages = with  pkgs; [
-		alejandra
-	];
+  extraPackages = with pkgs; [
+    alejandra
+  ];
 }

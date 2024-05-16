@@ -36,9 +36,9 @@
     services.pipewire = {
       enable = true;
       alsa = {
-				enable = true;
-      	support32Bit = true;
-			};
+        enable = true;
+        support32Bit = true;
+      };
       pulse.enable = true;
     };
   };
@@ -47,7 +47,7 @@
     console.keyMap = "uk";
     time.timeZone = "Europe/London";
     i18n.extraLocaleSettings = {
-			defaultLocale = "en_GB.UTF-8";
+      defaultLocale = "en_GB.UTF-8";
       LC_ADDRESS = "en_GB.UTF-8";
       LC_IDENTIFICATION = "en_GB.UTF-8";
       LC_MEASUREMENT = "en_GB.UTF-8";
@@ -75,20 +75,20 @@
     };
   };
 
-	dwm-module = {
-		services.xserver.windowManager.dwm = {
-			package = pkgs.dwm;
-			enable = true;
-		};
-	};
+  dwm-module = {
+    services.xserver.windowManager.dwm = {
+      package = pkgs.dwm;
+      enable = true;
+    };
+  };
 
-	fonts-module = {
-		fonts = {
-			enableDefaultPackages = true;
-			packages = with pkgs; [
-				fira-code-nerdfont
-				source-code-pro
-			];
-		};
-	};
+  fonts-module = {
+    fonts = {
+      enableDefaultPackages = true;
+      packages = with pkgs; [
+        fira-code-nerdfont
+        source-code-pro
+      ];
+    };
+  };
 }

@@ -88,11 +88,14 @@ in rec {
     extraHardwareConfig ? {},
     gui ? false,
     buildIso ? false,
-		fonts ? true,
-		extraFonts ? [],
+    fonts ? true,
+    extraFonts ? [],
     ...
   }: let
-    sys_users = if (users != null) then map (u: mkSystemUser u) users else [];
+    sys_users =
+      if (users != null)
+      then map (u: mkSystemUser u) users
+      else [];
     pkgs = nixpkgsFor.${system};
     nixos-modules = import ./nixos-modules.nix {inherit pkgs;};
     inherit (nixos-modules) uefi-module nix-config sound-module location-uk gdm-module gnome-module dwm-module fonts-module;
@@ -151,14 +154,14 @@ in rec {
             };
             nix = nix-config;
             system.stateVersion = "24.05";
-						environment.systemPackages = with pkgs; [
-							tabbed
-							surf
-							st
-							dmenu
-							slstatus
-							slock
-						];
+            environment.systemPackages = with pkgs; [
+              tabbed
+              surf
+              st
+              dmenu
+              slstatus
+              slock
+            ];
           }
           (lib.mkIf uefi uefi-module)
           (lib.mkIf sound sound-module)
@@ -167,13 +170,12 @@ in rec {
           (lib.mkIf (builtins.isNull filesystems && buildIso == false) {boot.isContainer = true;})
           (lib.mkIf (builtins.isAttrs extraHardwareConfig) extraHardwareConfig)
           (lib.mkIf (location == "uk") location-uk)
-					(lib.mkIf (location == "uk" && gui != null) {services.xserver.xkb.layout = "gb";})
+          (lib.mkIf (location == "uk" && gui != null) {services.xserver.xkb.layout = "gb";})
           (lib.mkIf (gui != null) gdm-module)
           (lib.mkIf (gui == "gnome") gnome-module)
           (lib.mkIf (gui == "dwm") dwm-module)
-					(lib.mkIf fonts fonts-module)
-					(lib.mkIf fonts {fonts.packages = extraFonts;})
-
+          (lib.mkIf fonts fonts-module)
+          (lib.mkIf fonts {fonts.packages = extraFonts;})
         ]
         ++ isoModules;
     };

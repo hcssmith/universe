@@ -73,9 +73,9 @@
         };
     };
 
-		isos = {
-			x86 = nixosConfigurations.x86_64_buildIso.config.system.build.isoImage; 
-			};
+    isos = {
+      x86 = nixosConfigurations.x86_64_buildIso.config.system.build.isoImage;
+    };
 
     homeConfigurations = {
       hcssmith = let
