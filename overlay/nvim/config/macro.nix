@@ -2,11 +2,11 @@
   extraPackages = with pkgs; [
     sqlite
   ];
-  extraPlugins = [
-    pkgs.vimPlugins.sqlite-lua
-    (pkgs.vimUtils.buildVimPlugin {
+  extraPlugins = with pkgs; [
+    vimPlugins.sqlite-lua
+    (vimUtils.buildVimPlugin {
       name = "neocomposor";
-      src = pkgs.fetchFromGitHub {
+      src = fetchFromGitHub {
         owner = "ecthelionvi";
         repo = "NeoComposer.nvim";
         rev = "b06e8e88e289947937f241f76e86f7c46f4a5805";
