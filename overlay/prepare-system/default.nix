@@ -5,27 +5,44 @@
 in
   prev.writeShellScriptBin "prepare-system" ''
 
+		FLAKE_BASE=universe
+
     ${gum} style --bold --underline "Prepare NixOS System for installation."
 
 
     MACHINE_ID=$(${gum} input --header="Enter Machine ID")
-    CONFIG_DIR=universe/machines/$MACHINE_ID
+    CONFIG_DIR=$FLAKE_BASE/machines/$MACHINE_ID
 
-    nix flake clone universe --dest universe
+    nix flake clone universe --dest $FLAKE_BASE
 
     mkdir -p $CONFIG_DIR
 
     #ssh-keygen -f ~/.ssh/id_rsa -q -N ""
     ssh-keygen -f ./test -q -N ""
 
-    # put public ssh key on screen to be added to github
-
     # if confifirm add to clipboard XCLIP else CAT
+		DONE=0
 
+		while [ $DONE -eq 0 ];
+		do 
+			${gum} confirm "Add sshkey to clipboard?" && cat ./test | ${xclip} -selection clipboard || cat ./test
+			${gum} confirm "Has the SSH Key been added to github?" && DONE=1
+		done
 
-    # y/n confirm done, then update remotes to add ssh based remote
 
     # generate diskio filesystem instructions to universe/machines/$machine/diskio.nix
+
+		${gum} style --bold "Choose the filesystem type to generate:"
+		SYSTEMTYPE=$(${gum} choose "Root on TmpFS" "...")
+
+		case $SYSTEMTYPE in
+			"Root on TmpFS")
+				echo AA
+				;;
+			"...")
+				echo BB
+				;;
+		esac
 
     # run diskio
 
