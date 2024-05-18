@@ -38,7 +38,7 @@
       inputs.nixgl.overlay
     ];
     lib = import ./lib {inherit supportedSystems nixpkgs overlays inputs;};
-    inherit (lib) forAllSystems nixpkgsFor overlayToPackages genOverlay mkHost mkHMUser;
+    inherit (lib) forAllSystems nixpkgsFor overlayToPackages genOverlay mkHost mkHMUser defaultUsers;
   in rec {
     nixosConfigurations = {
       laptop = let
@@ -52,14 +52,7 @@
           gui = "gnome";
           uefi = true;
           sound = true;
-          users = [
-            {
-              name = "hcssmith";
-              groups = ["wheel" "networkmanager"];
-              uid = 1000;
-              shell = pkgs.zsh;
-            }
-          ];
+          users = defaultUsers pkgs;
         };
       x86_64_buildIso = let
         system = "x86_64-linux";

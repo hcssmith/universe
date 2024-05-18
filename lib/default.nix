@@ -18,6 +18,15 @@ in rec {
       }
   );
 
+  defaultUsers = pkgs: [
+    {
+      name = "hcssmith";
+      groups = ["wheel" "networkmanager"];
+      uid = 1000;
+      shell = pkgs.zsh;
+    }
+  ];
+ 
   genOverlay = dir: final: prev: (
     nixpkgs.lib.genAttrs (builtins.attrNames (builtins.readDir dir)) (
       name: prev.callPackage /${dir}/${name} {inherit prev inputs;}
