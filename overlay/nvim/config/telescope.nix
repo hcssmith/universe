@@ -6,10 +6,16 @@
       "<leader>fb" = {action = "buffers";};
       "<leader>gf" = {action = "git_files";};
       "<leader>vh" = {action = "help_tags";};
-      "<leader>ps" = {action = "grep_string";};
     };
     extensions = {
       ui-select.enable = true;
     };
   };
+  keymaps = [
+    {
+      action = ''function () require('telescope.builtin').grep_string({ search = vim.fn.input("Grep > ") }) end'';
+      lua = true;
+      key = "<leader>ps";
+    }
+  ];
 }
