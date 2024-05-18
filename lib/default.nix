@@ -26,7 +26,7 @@ in rec {
       shell = pkgs.zsh;
     }
   ];
- 
+
   genOverlay = dir: final: prev: (
     nixpkgs.lib.genAttrs (builtins.attrNames (builtins.readDir dir)) (
       name: prev.callPackage /${dir}/${name} {inherit prev inputs;}

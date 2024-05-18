@@ -86,6 +86,7 @@
           extraPackages = with pkgs; [
             firefox
             nixgl.nixGLIntel
+            steam-run
           ];
         };
     };
