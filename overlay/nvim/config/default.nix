@@ -8,7 +8,8 @@
   imports = [
     ./cmp.nix
     ./colourscheme.nix
-#    ./colourpicker.nix
+    # hopefully fixed by https://github.com/uga-rosa/ccc.nvim/issues/117
+    #    ./colourpicker.nix
     ./git_worktree.nix
     ./harpoon.nix
     ./highlights.nix
