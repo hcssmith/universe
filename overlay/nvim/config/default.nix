@@ -8,6 +8,7 @@
   imports = [
     ./cmp.nix
     ./colourscheme.nix
+    ./colourpicker.nix
     ./git_worktree.nix
     ./harpoon.nix
     ./highlights.nix
