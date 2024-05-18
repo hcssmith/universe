@@ -23,6 +23,7 @@
   ];
   config = {
     globals.mapleader = " ";
+    colorscheme = pkgs.lib.mkForce "melange";
     opts = {
       number = true;
       signcolumn = "yes";

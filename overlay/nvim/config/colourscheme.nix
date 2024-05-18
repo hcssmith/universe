@@ -1,8 +1,7 @@
 {
-  colorschemes.nord = {
-    enable = false;
-  };
-  colorschemes.dracula = {
-    enable = true;
+  colorschemes = {
+    nord.enable = true;
+    dracula.enable = true;
+    melange.enable = true;
   };
 }
