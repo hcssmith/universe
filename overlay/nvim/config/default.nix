@@ -41,8 +41,11 @@
     };
     extraPackages = with pkgs; [
       ripgrep
+      fd
+      fswatch
     ];
     package = pkg;
+    withRuby = false;
     autoGroups = {
       UtilAutoCmds = {clear = true;};
     };
