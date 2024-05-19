@@ -88,6 +88,7 @@
     servers = {
       ols = {enable = true;};
       lua-ls = {enable = true;};
+      bashls = {enable = true;};
       nixd = {
         enable = true;
         settings.formatting = {
