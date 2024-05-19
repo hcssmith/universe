@@ -43,7 +43,14 @@
                 vim.lsp.buf.format()
                 vim.diagnostic.enable(ev.buf)
                 vim.fn.winrestview(view)
+             		return
               end
+            end
+            if vim.bo.filetype == "sh" then
+              local view = vim.fn.winsaveview()
+              vim.cmd('silent %!shfmt %')
+              vim.diagnostic.enable(ev.buf)
+              vim.fn.winrestview(view)
             end
           end
         '';
@@ -122,5 +129,6 @@
   ];
   extraPackages = with pkgs; [
     alejandra
+    shfmt
   ];
 }
