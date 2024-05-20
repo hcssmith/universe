@@ -1,6 +1,5 @@
 {
   pkgs,
-  wrap_files,
   pkg,
   ...
 }: {
@@ -11,6 +10,7 @@
     # hopefully fixed by https://github.com/uga-rosa/ccc.nvim/issues/117
     #    ./colourpicker.nix
     ./git_worktree.nix
+    ./gui.nix
     ./harpoon.nix
     ./highlights.nix
     ./lsp.nix
@@ -28,6 +28,7 @@
     colorscheme = pkgs.lib.mkForce "melange";
     opts = {
       number = true;
+      scrolloff = 8;
       signcolumn = "yes";
       relativenumber = true;
       shiftwidth = 2;
@@ -69,7 +70,7 @@
         desc = "Enable wrap on certain filetypes";
         event = "BufEnter";
         group = "UtilAutoCmds";
-        pattern = wrap_files;
+        pattern = ["*.nw" "*.tex" "*.norg" "*.md" "*.txt"];
         callback = {
           __raw = ''
             function(ev)

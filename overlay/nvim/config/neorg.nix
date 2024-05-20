@@ -1,8 +1,4 @@
-{
-  notes_dir,
-  pkgs_stable,
-  ...
-}: {
+{pkgs_stable, ...}: {
   plugins.neorg = {
     enable = true;
     package = pkgs_stable.vimPlugins.neorg;
@@ -14,7 +10,7 @@
       "core.dirman" = {
         config = {
           workspaces = {
-            notes = notes_dir;
+            notes = "~/notes/";
           };
         };
       };

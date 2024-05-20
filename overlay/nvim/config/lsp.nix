@@ -82,7 +82,7 @@
       callback = {
         __raw = ''
           function(ev)
-            if vim.lsp.inlay_hint.is_enabled(ev.buf) then
+            if vim.lsp.inlay_hint.is_enabled({bufnr = ev.buf}) then
               vim.lsp.inlay_hint.enable(false)
             end
           end

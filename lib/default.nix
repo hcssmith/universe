@@ -68,6 +68,7 @@ in rec {
               gnutar
               p7zip
               nvim
+              neovide
             ];
           };
           news.display = "silent";
