@@ -68,11 +68,16 @@ in rec {
               gnutar
               p7zip
               nvim
-              neovide
+              fira-code-nerdfont
+              inputs.nixpkgs_stable.legacyPackages.${system}.neovide
+              #(neovide.overrideAttrs (o: {
+              #  neovim = inputs.nixpkgs_stable.legacyPackages.${system}.neovim;
+              #}))
             ];
           };
           news.display = "silent";
           nix = nix-config;
+          fonts.fontconfig.enable = true;
         }
         {
           home.packages = extraPackages;

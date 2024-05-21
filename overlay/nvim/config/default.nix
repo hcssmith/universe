@@ -47,7 +47,7 @@
       fd
       fswatch
     ];
-    package = pkg;
+    #    package = pkg;
     withRuby = false;
     autoGroups = {
       UtilAutoCmds = {clear = true;};
