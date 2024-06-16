@@ -10,14 +10,9 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    neovim.url = "github:hcssmith/neovim.drv";
+    tmux.url = "github:hcssmith/tmux.drv";
+    nushell.url = github:hcssmith/nushell.drv;
   };
 
   outputs = {
@@ -34,12 +29,20 @@
     overlays = [
       inputs.nur.overlay
       self.overlays.default
-      inputs.neovim-nightly-overlay.overlay
       inputs.nixgl.overlay
+      inputs.neovim.overlays.default
+      inputs.tmux.overlays.default
+      inputs.nushell.overlays.default
     ];
     lib = import ./lib {inherit supportedSystems nixpkgs overlays inputs;};
     inherit (lib) forAllSystems nixpkgsFor overlayToPackages genOverlay mkHost mkHMUser defaultUsers;
   in rec {
+    supportedSystems = [
+      "x86_64-linux"
+      "x86_64-darwin"
+      "aarch64-linux"
+      "aarch64-darwin"
+    ];
     nixosConfigurations = {
       laptop = let
         system = "x86_64-linux";
@@ -87,6 +90,8 @@
             firefox
             nixgl.nixGLIntel
             steam-run
+            tmux
+            wezterm
           ];
         };
     };

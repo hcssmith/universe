@@ -3,14 +3,14 @@
 main() {
 	FLAKE_BASE=universe
 
-	${gum} style --bold --underline "Prepare NixOS System for installation."
+	gum style --bold --underline "Prepare NixOS System for installation."
 
-	MACHINE_ID=$(${gum} input --header="Enter Machine ID")
+	MACHINE_ID=$(gum input --header="Enter Machine ID")
 	CONFIG_DIR=$FLAKE_BASE/machines/$MACHINE_ID
 
 	nix flake clone universe --dest $FLAKE_BASE
 
-	mkdir -p $CONFIG_DIR
+	mkdir -p "$CONFIG_DIR"
 
 	#ssh-keygen -f ~/.ssh/id_rsa -q -N ""
 	ssh-keygen -f ./test -q -N ""
@@ -19,14 +19,14 @@ main() {
 	DONE=0
 
 	while [ $DONE -eq 0 ]; do
-		${gum} confirm "Add sshkey to clipboard?" && cat ./test | ${xclip} -selection clipboard || cat ./test
-		${gum} confirm "Has the SSH Key been added to github?" && DONE=1
+		gum confirm "Add sshkey to clipboard?" && xclip -selection clipboard < ./test || cat ./test
+		gum confirm "Has the SSH Key been added to github?" && DONE=1
 	done
 
 	# generate diskio filesystem instructions to universe/machines/$machine/diskio.nix
 
-	${gum} style --bold "Choose the filesystem type to generate:"
-	SYSTEMTYPE=$(${gum} choose "Root on TmpFS" "...")
+	gum style --bold "Choose the filesystem type to generate:"
+	SYSTEMTYPE=$(gum choose "Root on TmpFS" "...")
 
 	case $SYSTEMTYPE in
 	"Root on TmpFS")
@@ -47,5 +47,11 @@ main() {
 }
 
 root_on_tmpfs() {
-	DISK_NAME=$(${gum} input --header "Name of disk: /dev/")
+	DISK_NAME=$(gum input --header "Name of disk: /dev/")
+	export DISK_NAME
+	envsubst root-on-tmpfs-template.nix > test.nix
+
+	DISK_NAME=
 }
+
+main

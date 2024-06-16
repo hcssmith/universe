@@ -8,18 +8,14 @@ in
     src = ./.;
 
     nativeBuildInputs = with prev; [
-      gum
-      git
-      xclip
+      makeWrapper
     ];
 
-    buildPhases = ["installPhase"];
-
     installPhase = ''
-      mkdir -p $out/bin
-      mkdir -p $out/lib
-      install -m 777 ./prepare-system.sh $out/bin/prepare-system
-      install -m 555 ./root-on-tmpfs-template.nix $out/lib
+      install -m755 ./prepare-system.sh -D $out/bin/prepare-system
+      install -m555 ./root-on-tmpfs-template.nix -D $out/lib
+
+      wrapProgram $out/bin/prepare-system --prefix PATH : ${lib.makeBinPath [prev.gum prev.xclip prev.git]}
     '';
 
     meta = {

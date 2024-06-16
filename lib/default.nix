@@ -67,12 +67,10 @@ in rec {
             packages = with pkgs; [
               gnutar
               p7zip
-              nvim
+              neovim
+              nushell
               fira-code-nerdfont
-              inputs.nixpkgs_stable.legacyPackages.${system}.neovide
-              #(neovide.overrideAttrs (o: {
-              #  neovim = inputs.nixpkgs_stable.legacyPackages.${system}.neovim;
-              #}))
+              cm_unicode
             ];
           };
           news.display = "silent";
