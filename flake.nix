@@ -12,7 +12,8 @@
     };
     neovim.url = "github:hcssmith/neovim.drv";
     tmux.url = "github:hcssmith/tmux.drv";
-    nushell.url = github:hcssmith/nushell.drv;
+    nushell.url = "github:hcssmith/nushell.drv";
+    wezterm.url = "github:hcssmith/wezterm.drv";
   };
 
   outputs = {
@@ -33,6 +34,7 @@
       inputs.neovim.overlays.default
       inputs.tmux.overlays.default
       inputs.nushell.overlays.default
+      inputs.wezterm.overlays.default
     ];
     lib = import ./lib {inherit supportedSystems nixpkgs overlays inputs;};
     inherit (lib) forAllSystems nixpkgsFor overlayToPackages genOverlay mkHost mkHMUser defaultUsers;
