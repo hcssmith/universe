@@ -962,11 +962,11 @@
         "nixpkgs": "nixpkgs_8"
       },
       "locked": {
-        "lastModified": 1719011170,
-        "narHash": "sha256-KtsUfOq9/te519RRCwhmtz1wy9EUGCL8dyT/Zo7sFOM=",
+        "lastModified": 1719100217,
+        "narHash": "sha256-Jyz/vcozUeKvATHw6sSGFetU/qWxwFXLUBTUwgKt/m0=",
         "owner": "hcssmith",
         "repo": "picom.drv",
-        "rev": "ed02a3099057139416174e536560b130b306ffc4",
+        "rev": "bb49208a63ef0769177e8a47a0a576e569794574",
         "type": "github"
       },
       "original": {
