@@ -30,7 +30,6 @@
     ];
     overlays = [
       inputs.nur.overlay
-      self.overlays.default
       inputs.nixgl.overlay
       inputs.neovim.overlays.default
       inputs.tmux.overlays.default
@@ -101,18 +100,12 @@
         };
     };
 
-    overlays.default = genOverlay ./overlay;
-
     formatter = forAllSystems (system: nixpkgsFor.${system}.alejandra);
 
     packages = forAllSystems (
-      system: let
-        pkgs = nixpkgsFor.${system};
-      in
-        {
-          default = inputs.home-manager.defaultPackage.${system};
-        }
-        // (overlayToPackages ./overlay pkgs)
+      system: {
+        default = inputs.home-manager.defaultPackage.${system};
+      }
     );
 
     # Dev Shells for nix development contains all the required tools.
