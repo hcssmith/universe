@@ -17,11 +17,7 @@
     picom.url = "github:hcssmith/picom.drv";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    ...
-  } @ inputs: let
+  outputs = {nixpkgs, ...} @ inputs: let
     supportedSystems = [
       "x86_64-linux"
       "x86_64-darwin"
@@ -38,7 +34,7 @@
       inputs.picom.overlays.default
     ];
     lib = import ./lib {inherit supportedSystems nixpkgs overlays inputs;};
-    inherit (lib) forAllSystems nixpkgsFor overlayToPackages genOverlay mkHost mkHMUser defaultUsers;
+    inherit (lib) forAllSystems nixpkgsFor mkHost mkHMUser defaultUsers;
   in rec {
     supportedSystems = [
       "x86_64-linux"
