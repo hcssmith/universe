@@ -113,7 +113,7 @@
           nativeBuildInputs = with pkgs; [
             nix-prefetch-github
           ];
-          shellHook = "zsh";
+          shellHook = "nu";
         };
       }
     );

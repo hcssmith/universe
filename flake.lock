@@ -470,11 +470,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1719486882,
-        "narHash": "sha256-EXPGzqVzpIqNMB082dAQzfq91N73D2fAdDN6Nwv6mgg=",
+        "lastModified": 1719508528,
+        "narHash": "sha256-/OQ/y/Qd3hfId4cZ1Ru27a0Kb9yeML9AUUOX5OVroRo=",
         "owner": "hcssmith",
         "repo": "neovim.drv",
-        "rev": "768620ec21a2475158f48b807ee68efca9d65b50",
+        "rev": "c7090cff2239b234f9c1c484d4bf50da7afd763b",
         "type": "github"
       },
       "original": {
