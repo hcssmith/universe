@@ -9,11 +9,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1718558654,
-        "narHash": "sha256-NeB1ueCnpNxVEjq5gnlAcAjET5ZxhygTVP6xIvZv9L8=",
+        "lastModified": 1719652132,
+        "narHash": "sha256-wq+z8SEmu7noKq15/Y+gpc7/sncAad1y/AWfUrYcRXQ=",
         "owner": "hcssmith",
         "repo": "application-builders",
-        "rev": "a2ce7fcc4dee4e1653dd52c9d89bb098a0b04ed4",
+        "rev": "e47f18630925e9882312a802fb333e09f24a4088",
         "type": "github"
       },
       "original": {
@@ -470,11 +470,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1719508528,
-        "narHash": "sha256-/OQ/y/Qd3hfId4cZ1Ru27a0Kb9yeML9AUUOX5OVroRo=",
+        "lastModified": 1719652290,
+        "narHash": "sha256-gvsXzEzUBh6mMqJQlMtekR2kFcSsWYp8DAzDHGjAE9w=",
         "owner": "hcssmith",
         "repo": "neovim.drv",
-        "rev": "c7090cff2239b234f9c1c484d4bf50da7afd763b",
+        "rev": "5242e413ec720bd574337345c502dc5add8a84e4",
         "type": "github"
       },
       "original": {
