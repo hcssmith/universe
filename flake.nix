@@ -92,6 +92,7 @@
             tmux
             wezterm
             picom
+            fzf
           ];
         };
     };
