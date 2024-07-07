@@ -31,11 +31,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1720365977,
-        "narHash": "sha256-O+WSNOWjkTyyoRwIg8uk933BwkeRpJylMautIQkFuBg=",
+        "lastModified": 1720387339,
+        "narHash": "sha256-cpOhFLSfCyc1MLQRdOcppCqLv7wnw0dyG27dP+dfmLs=",
         "owner": "hcssmith",
         "repo": "application-builders",
-        "rev": "cc861b14e578d2808a1065a01f272a520c22907e",
+        "rev": "8d968fe5a66c779e8d33bb4abc273a739240608e",
         "type": "github"
       },
       "original": {
@@ -933,11 +933,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1720366220,
-        "narHash": "sha256-r4y7ZCo728VFizoU1/LicgS4NUw7TJh650qn+GOF77Q=",
+        "lastModified": 1720387484,
+        "narHash": "sha256-c28f1eVFpHJ2NNfqNGRYMpOUDbfiY3xtRRiXRwM4ZEQ=",
         "owner": "hcssmith",
         "repo": "nushell.drv",
-        "rev": "0644c71a1606b027985029a398a817fc41eccd93",
+        "rev": "09371e8195e32e18a887a8799fc37834cd16c322",
         "type": "github"
       },
       "original": {
