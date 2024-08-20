@@ -15,6 +15,7 @@
     nushell.url = "github:hcssmith/nushell.drv";
     wezterm.url = "github:hcssmith/wezterm.drv";
     picom.url = "github:hcssmith/picom.drv";
+    plan9.url = "github:hcssmith/plan9.drv";
   };
 
   outputs = {nixpkgs, ...} @ inputs: let
@@ -32,6 +33,7 @@
       inputs.nushell.overlays.default
       inputs.wezterm.overlays.default
       inputs.picom.overlays.default
+      inputs.plan9.overlays.default
     ];
     lib = import ./lib {inherit supportedSystems nixpkgs overlays inputs;};
     inherit (lib) forAllSystems nixpkgsFor mkHost mkHMUser defaultUsers;
@@ -92,7 +94,7 @@
             tmux
             wezterm
             picom
-            fzf
+            plan9
           ];
         };
     };
