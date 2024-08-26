@@ -2,7 +2,9 @@
   description = "System configurations / Overlays / Applications";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
+    #nixpkgs.url = "git+file:///home/hcssmith/Projects/nixpkgs";
+    nixpkgs.url = "github:hcssmith/nixpkgs";
+    #nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     nixpkgs_stable.url = "github:nixos/nixpkgs/23.11";
     nur.url = "github:nix-community/NUR/master";
     nixgl.url = "github:nix-community/nixGL";
@@ -10,12 +12,30 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    neovim.url = "github:hcssmith/neovim.drv";
-    tmux.url = "github:hcssmith/tmux.drv";
-    nushell.url = "github:hcssmith/nushell.drv";
-    wezterm.url = "github:hcssmith/wezterm.drv";
-    picom.url = "github:hcssmith/picom.drv";
-    plan9.url = "github:hcssmith/plan9.drv";
+    neovim = {
+      url = "github:hcssmith/neovim.drv";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    tmux = {
+      url = "github:hcssmith/tmux.drv";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nushell = {
+      url = "github:hcssmith/nushell.drv";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    wezterm = {
+      url = "github:hcssmith/wezterm.drv";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    picom = {
+      url = "github:hcssmith/picom.drv";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    plan9 = {
+      url = "github:hcssmith/plan9.drv";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {nixpkgs, ...} @ inputs: let
@@ -82,19 +102,16 @@
         mkHMUser {
           username = "hcssmith";
           inherit system;
-          kitty = true;
-          starship = true;
           git = true;
           util = true;
-          zsh = true;
           extraPackages = with pkgs; [
-            firefox
             nixgl.nixGLIntel
             steam-run
             tmux
             wezterm
             picom
             plan9
+            plan9port
           ];
         };
     };
