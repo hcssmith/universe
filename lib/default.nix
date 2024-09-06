@@ -108,6 +108,9 @@ in rec {
               };
               Service = {
                 ExecStart = "${pkgs.plan9port}/bin/9 plumber";
+                ExecStartPost = "${pkgs.bash}/bin/bash ${pkgs.writeScript "plumber-rules" ''
+                	cat ${pkgs.plan9}/lib/plumbing | ${pkgs.plan9port}/bin/9 9p write plumb/rules
+                	''}";
                 Restart = "always";
                 Type = "forking";
                 RestartSec = 5;
