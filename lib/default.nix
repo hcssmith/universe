@@ -80,6 +80,59 @@ in rec {
         {
           home.packages = extraPackages;
         }
+        {
+          systemd.user.services = {
+            fontsrv = {
+              Unit = {
+                Description = "fontsrv";
+                After = ["basic.target"];
+                Requires = ["basic.target"];
+              };
+              Install = {
+                WantedBy = ["basic.target"];
+              };
+              Service = {
+                ExecStart = "${pkgs.plan9port}/bin/9 fontsrv";
+                Restart = "always";
+                RestartSec = 5;
+              };
+            };
+            plumber = {
+              Unit = {
+                Description = "plumber";
+                After = ["basic.target"];
+                Requires = ["basic.target"];
+              };
+              Install = {
+                WantedBy = ["basic.target"];
+              };
+              Service = {
+                ExecStart = "${pkgs.plan9port}/bin/9 plumber";
+                Restart = "always";
+                Type = "forking";
+                RestartSec = 5;
+              };
+            };
+            picom = {
+              Unit = {
+                Description = "picom";
+                After = ["basic.target"];
+                #Requires = ["basic.target"];
+                BindsTo = ["basic.target"];
+                PartOf = ["basic.target"];
+                Requisite = ["basic.target"];
+              };
+              Install = {
+                WantedBy = ["basic.target"];
+              };
+              Service = {
+                ExecStart = "${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel ${pkgs.picom}/bin/picom";
+                RestartSec = 5;
+                Restart="on-failure";
+              };
+            };
+          };
+        }
         (lib.mkIf util utils-module)
         (lib.mkIf kitty kitty-module)
         (lib.mkIf starship starship-module)

@@ -75,11 +75,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1718600853,
-        "narHash": "sha256-AVeylJamSaqODdHE2sJohlZWSHTots/HidAWqBcqqGc=",
+        "lastModified": 1724702579,
+        "narHash": "sha256-PH0uwyHEiGU0V2k0LM/eeZ4zRGek+iGB5FtGs7XJkk4=",
         "owner": "hcssmith",
         "repo": "application-builders",
-        "rev": "398ddef8f4c1bf0a133c0432d71f783a7c02e19f",
+        "rev": "a4f7fbd748c84bbf86fe098955ead3ccfc701c4a",
         "type": "github"
       },
       "original": {
@@ -952,11 +952,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1719136377,
-        "narHash": "sha256-EQPx3FZhhpCfRmbs1llS5ipNZODJwAG+CiD0uL4ErAc=",
+        "lastModified": 1724702708,
+        "narHash": "sha256-Z2dOr9/HoQTwpNIQcZsbPqh7g/pHR90noDz0gDtZvXQ=",
         "owner": "hcssmith",
         "repo": "wezterm.drv",
-        "rev": "46afe2ea367cb0ad6b264ae6c0772dfe54a5cf5c",
+        "rev": "7d5ae98f0bd48b9dc84be37420f8c83c882fab38",
         "type": "github"
       },
       "original": {
