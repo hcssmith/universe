@@ -81,57 +81,60 @@ in rec {
           home.packages = extraPackages;
         }
         {
-          systemd.user.services = {
-            fontsrv = {
-              Unit = {
-                Description = "fontsrv";
-                After = ["basic.target"];
-                Requires = ["basic.target"];
+          systemd.user = {
+            startServices = "sd-switch";
+            services = {
+              fontsrv = {
+                Unit = {
+                  Description = "fontsrv";
+                  After = ["basic.target"];
+                  Requires = ["basic.target"];
+                };
+                Install = {
+                  WantedBy = ["basic.target"];
+                };
+                Service = {
+                  ExecStart = "${pkgs.plan9port}/bin/9 fontsrv";
+                  Restart = "always";
+                  RestartSec = 5;
+                };
               };
-              Install = {
-                WantedBy = ["basic.target"];
+              plumber = {
+                Unit = {
+                  Description = "plumber";
+                  After = ["basic.target"];
+                  Requires = ["basic.target"];
+                };
+                Install = {
+                  WantedBy = ["basic.target"];
+                };
+                Service = {
+                  ExecStart = "${pkgs.plan9port}/bin/9 plumber";
+                  ExecStartPost = "${pkgs.bash}/bin/bash ${pkgs.writeScript "plumber-rules" ''
+                    cat ${pkgs.plan9}/lib/plumbing | ${pkgs.plan9port}/bin/9 9p write plumb/rules
+                  ''}";
+                  Restart = "always";
+                  Type = "forking";
+                  RestartSec = 5;
+                };
               };
-              Service = {
-                ExecStart = "${pkgs.plan9port}/bin/9 fontsrv";
-                Restart = "always";
-                RestartSec = 5;
-              };
-            };
-            plumber = {
-              Unit = {
-                Description = "plumber";
-                After = ["basic.target"];
-                Requires = ["basic.target"];
-              };
-              Install = {
-                WantedBy = ["basic.target"];
-              };
-              Service = {
-                ExecStart = "${pkgs.plan9port}/bin/9 plumber";
-                ExecStartPost = "${pkgs.bash}/bin/bash ${pkgs.writeScript "plumber-rules" ''
-                	cat ${pkgs.plan9}/lib/plumbing | ${pkgs.plan9port}/bin/9 9p write plumb/rules
-                	''}";
-                Restart = "always";
-                Type = "forking";
-                RestartSec = 5;
-              };
-            };
-            picom = {
-              Unit = {
-                Description = "picom";
-                After = ["basic.target"];
-                #Requires = ["basic.target"];
-                BindsTo = ["basic.target"];
-                PartOf = ["basic.target"];
-                Requisite = ["basic.target"];
-              };
-              Install = {
-                WantedBy = ["basic.target"];
-              };
-              Service = {
-                ExecStart = "${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel ${pkgs.picom}/bin/picom";
-                RestartSec = 5;
-                Restart="on-failure";
+              picom = {
+                Unit = {
+                  Description = "picom";
+                  After = ["basic.target"];
+                  #Requires = ["basic.target"];
+                  BindsTo = ["basic.target"];
+                  PartOf = ["basic.target"];
+                  Requisite = ["basic.target"];
+                };
+                Install = {
+                  WantedBy = ["basic.target"];
+                };
+                Service = {
+                  ExecStart = "${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel ${pkgs.picom}/bin/picom";
+                  RestartSec = 5;
+                  Restart = "on-failure";
+                };
               };
             };
           };
