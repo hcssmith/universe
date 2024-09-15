@@ -803,11 +803,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1725659097,
-        "narHash": "sha256-9eI9I86spJj/yeaMfHyaCikVfeWN/PXKLJrYBrnDjhc=",
+        "lastModified": 1726411407,
+        "narHash": "sha256-lpcVA9ljJ+EN3n68eFHrTTc2o/xAF1lr+4d7MqukDZ8=",
         "owner": "hcssmith",
         "repo": "plan9.drv",
-        "rev": "1ac8c2f35717b9fc0d2bdb8b8248b0d2bedba7ba",
+        "rev": "eaf09b8422c0be9987609516928cae3326f93891",
         "type": "github"
       },
       "original": {
