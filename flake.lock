@@ -457,11 +457,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1723986931,
-        "narHash": "sha256-Fy+KEvDQ+Hc8lJAV3t6leXhZJ2ncU5/esxkgt3b8DEY=",
+        "lastModified": 1741894454,
+        "narHash": "sha256-Mu2YXrGr/8Cid6W44AXci/YYnASoXjGrMV9Sjs66oyc=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "2598861031b78aadb4da7269df7ca9ddfc3e1671",
+        "rev": "0b0baed7b2bf6a5e365d4cba042b580a2bc32e34",
         "type": "github"
       },
       "original": {
@@ -707,17 +707,17 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1724324868,
-        "narHash": "sha256-wTPJsZPdwahXCMctvKjcnpywMXA8zQ4PfrbW7dDgTiA=",
-        "owner": "hcssmith",
+        "lastModified": 1741865919,
+        "narHash": "sha256-4thdbnP6dlbdq+qZWTsm4ffAwoS8Tiq1YResB+RP6WE=",
+        "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e2929b37cdb2ccf450ab100e940a1597cc28daad",
+        "rev": "573c650e8a14b2faa0041645ab18aed7e60f0c9a",
         "type": "github"
       },
       "original": {
-        "owner": "hcssmith",
-        "repo": "nixpkgs",
-        "type": "github"
+        "id": "nixpkgs",
+        "ref": "nixpkgs-unstable",
+        "type": "indirect"
       }
     },
     "nixpkgs_stable": {
@@ -782,11 +782,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1721945761,
-        "narHash": "sha256-vPqKtm9IcPkjuE4RTI9UQjTD9xP0q24w8o9/MH5lJMY=",
+        "lastModified": 1741910086,
+        "narHash": "sha256-yKdfFZVpnaUOSdhAAmbYrrxBeqKt/QiuoMYX+y3sX+A=",
         "owner": "hcssmith",
         "repo": "picom.drv",
-        "rev": "975094df33e3699f2f6bd51a5b058666af9588ba",
+        "rev": "21e71f4a267b55b05cf58abd3824da78ab45c28a",
         "type": "github"
       },
       "original": {
@@ -803,11 +803,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1726592960,
-        "narHash": "sha256-6t3MdkPhbvhakHWm6fr5ITR4iPuX8sYr+7CL18yFOOc=",
+        "lastModified": 1727445792,
+        "narHash": "sha256-qXBaD6dtqAqz2ExNXBR0smTNClvV6hs7hqKoVvEyQRM=",
         "owner": "hcssmith",
         "repo": "plan9.drv",
-        "rev": "2656aba957ed3eb9ed65cd84bd01d885c6d08654",
+        "rev": "eb71df66b16712b984b74a0fd328855cc10f99f2",
         "type": "github"
       },
       "original": {

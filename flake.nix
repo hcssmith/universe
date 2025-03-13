@@ -3,8 +3,8 @@
 
   inputs = {
     #nixpkgs.url = "git+file:///home/hcssmith/Projects/nixpkgs";
-    nixpkgs.url = "github:hcssmith/nixpkgs";
-    #nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+    #nixpkgs.url = "github:hcssmith/nixpkgs";
+    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     nixpkgs_stable.url = "github:nixos/nixpkgs/23.11";
     nur.url = "github:nix-community/NUR/master";
     nixgl.url = "github:nix-community/nixGL";
@@ -120,7 +120,7 @@
 
     packages = forAllSystems (
       system: {
-        default = inputs.home-manager.defaultPackage.${system};
+        default = inputs.home-manager.packages.${system}.default;
       }
     );
 
