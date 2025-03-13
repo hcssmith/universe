@@ -67,7 +67,7 @@ in rec {
             packages = with pkgs; [
               gnutar
               p7zip
-              neovim
+              #neovim
               nushell
               fira-code-nerdfont
               cm_unicode
