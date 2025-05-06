@@ -69,7 +69,7 @@ in rec {
               p7zip
               #neovim
               nushell
-              fira-code-nerdfont
+              nerd-fonts.fira-code
               cm_unicode
             ];
           };

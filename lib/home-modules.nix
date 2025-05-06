@@ -28,7 +28,7 @@
       enable = true;
       shellIntegration.enableZshIntegration = true;
       font = {
-        package = pkgs.fira-code-nerdfont;
+        package = pkgs.nerd-fonts.fira-code;
         name = "Fira Code";
         size = 10;
       };
