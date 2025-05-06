@@ -112,6 +112,7 @@
             picom
             plan9
             plan9port
+            firefox
           ];
         };
     };
